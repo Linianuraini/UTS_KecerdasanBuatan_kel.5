@@ -1,87 +1,128 @@
-# Definisi Graf (Dictionary) yang merepresentasikan lokasi dan koneksi antar lokasi di UNIB
-# Setiap lokasi terhubung dengan lokasi lain beserta waktu tempuh (menit) dan jarak (meter)
+START
 
-# Definisi Dictionary untuk kecepatan rata-rata kendaraan (tidak digunakan langsung dalam kode)
+IMPORT library tkinter, messagebox, ttk, folium, webbrowser
+IMPORT datetime
 
-# Fungsi BFS untuk mencari jalur terpendek antara dua lokasi
-def bfs_shortest_path(graph, start, goal, day):
-  # Inisialisasi list 'explored' untuk menyimpan node yang sudah dikunjungi
-  # Inisialisasi queue dengan node awal sebagai path pertama
+// =====================================
+// BAGIAN 1: DEFINISI GRAF JALUR KAMPUS
+// =====================================
+DEFINE graph AS dictionary:
+    SET setiap node (misal "Gedung A", "Gedung B", dll)
+    SET isi value node sebagai list of tuples:
+        (nama_tetangga, waktu_tempuh_dalam_menit, jarak_dalam_meter)
 
-  # Jika node awal dan tujuan sama, kembalikan node awal sebagai path, waktu = 0, jarak = 0
-  
-  # Selama queue tidak kosong:
-    # Ambil path pertama dari queue
-    # Ambil node terakhir dari path
 
-    # Jika node belum dieksplorasi:
-      # Inisialisasi list 'neighbors' untuk menyimpan tetangga dari node saat ini
-      # Iterasi melalui tetangga node dari graf:
-        # Tambahkan tuple (tetangga, waktu, jarak) ke list 'neighbors'
+// ======================================
+// BAGIAN 2: KECEPATAN BERDASARKAN KENDARAAN
+// ======================================
+DEFINE transport_speed AS dictionary:
+    "Motor" → 30 km/jam
+    "Mobil" → 20 km/jam
+    "Sepeda" → 10 km/jam
+    "Jalan Kaki" → 5 km/jam
 
-      # Jika hari adalah Sabtu atau Minggu DAN node adalah "Gerbang masuk UNIB belakang":
-        # Batasi 'neighbors' hanya dengan jalur pertama (karena gerbang sebagian tutup)
 
-      # Iterasi melalui tetangga yang sudah disesuaikan:
-        # Buat path baru dengan menambahkan tetangga ke path saat ini
-        # Tambahkan path baru ke queue
-        # Jika tetangga adalah node tujuan:
-          # Inisialisasi total_time = 0 dan total_distance = 0
-          # Iterasi melalui node di path baru (kecuali node terakhir):
-            # Dapatkan node saat ini dan node berikutnya dari path
-            # Cari koneksi antara node saat ini dan node berikutnya di graf:
-              # Tambahkan waktu dan jarak ke total_time dan total_distance
-              # Hentikan pencarian koneksi
+// ======================================
+// BAGIAN 3: KOORDINAT TIAP LOKASI
+// ======================================
+FUNCTION get_coordinates(location):
+    DEFINE dictionary koordinat lokasi
+    IF location in dictionary:
+        RETURN koordinat
+    ELSE:
+        RETURN koordinat default (0, 0)
 
-          # Kembalikan path baru, total_time, dan total_distance
 
-      # Tandai node saat ini sebagai sudah dieksplorasi
+// ===================================================
+// BAGIAN 4: BFS UNTUK MENCARI JALUR TERPENDEK
+// ===================================================
+FUNCTION bfs_shortest_path(graph, start, goal, day):
+    INIT queue ← [[start]]
+    INIT explored ← []
 
-  # Jika tidak ada path ditemukan, kembalikan None, pesan error, dan 0
+    IF start == goal:
+        RETURN [start], 0, 0
 
-# Fungsi untuk menangani pencarian path berdasarkan input dari GUI
-def find_path():
-  # Dapatkan lokasi awal, lokasi tujuan, kendaraan, hari, dan waktu dari input GUI
+    WHILE queue is not empty:
+        path ← queue.pop(0)
+        node ← last element of path
 
-  # Jika ada input yang kosong, tampilkan pesan error dan hentikan fungsi
+        IF node not in explored:
+            neighbors ← graph[node]
 
-  # Jika waktu yang dipilih sebelum jam 6 pagi atau setelah jam 10 malam:
-    # Tampilkan pesan bahwa pencarian rute tidak dapat dilakukan karena gerbang tutup dan hentikan fungsi
+            IF day IN ["Sabtu", "Minggu"] AND node == "Gerbang masuk UNIB belakang":
+                neighbors ← hanya tetangga yang menuju "Gedung D" (jalur khusus 1 arah)
 
-  # Jika lokasi awal atau tujuan tidak ada di graf:
-    # Tampilkan pesan error dan hentikan fungsi
+            FOR EACH (neighbor, time, distance) in neighbors:
+                new_path ← path + [neighbor]
+                queue.append(new_path)
 
-  # Panggil fungsi 'bfs_shortest_path' untuk mendapatkan path, waktu, dan jarak
-  # Jika path ditemukan (berupa list):
-    # Format output dengan path, waktu tempuh, dan jarak
-    # Tampilkan hasil di label hasil
-  # Jika tidak ada path ditemukan:
-    # Tampilkan pesan error di label hasil
+                IF neighbor == goal:
+                    CALCULATE total_time and total_distance:
+                        total_time ← SUM dari waktu tiap edge dalam path
+                        total_distance ← SUM dari jarak tiap edge dalam path
+                    RETURN new_path, total_time, total_distance
 
-# Fungsi untuk mereset input dan output GUI
-def reset_search():
-  # Reset semua input combobox
-  # Reset label hasil
+            explored.append(node)
 
-# Inisialisasi GUI menggunakan Tkinter
-# Konfigurasi jendela utama (judul, ukuran, warna latar)
+    RETURN None, "Tidak ada jalur", 0
 
-# Styling GUI (warna, font)
 
-# Membuat frame input untuk menampung label dan combobox
-# Membuat label dan combobox untuk lokasi awal, lokasi tujuan, kendaraan, hari, dan waktu
-# Mengatur layout menggunakan grid
+// =====================================================
+// BAGIAN 5: VISUALISASI RUTE MENGGUNAKAN FOLIUM
+// =====================================================
+FUNCTION show_map(path, vehicle, time_str, waktu_tempuh, jarak, day):
+    IF path is None:
+        RETURN
 
-# Membuat frame tombol untuk menampung tombol cari dan reset
-# Membuat tombol "Cari Rute" dan "Reset"
-# Mengatur layout menggunakan pack
+    map_center ← koordinat node tengah di path
+    CREATE folium.Map dengan lokasi map_center, zoom 17
 
-# Membuat label untuk menampilkan hasil
-# Konfigurasi label (wrapping text, perataan, font, warna latar, warna teks)
-# Mengatur layout menggunakan pack
+    BUAT html_string untuk informasi perjalanan (judul, waktu, lokasi awal, tujuan, dll)
 
-# Membuat label untuk catatan
-# Konfigurasi label (font, warna latar, warna teks)
-# Mengatur layout menggunakan pack
+    TAMBAHKAN Popup HTML ke peta
 
-# Menjalankan main loop GUI
+    LOOP i from 0 to len(path) - 2:
+        koordinat_start ← get_coordinates(path[i])
+        koordinat_end ← get_coordinates(path[i+1])
+        TAMBAHKAN folium.PolyLine dari koordinat_start ke koordinat_end ke peta
+
+    TAMBAHKAN marker hijau di titik awal
+    TAMBAHKAN marker merah di titik akhir
+
+    SIMPAN peta ke file HTML
+    BUKA peta di browser
+
+
+// ========================================================
+// BAGIAN 6: ANTARMUKA GRAFIS (GUI) DENGAN TKINTER
+// ========================================================
+BUAT jendela Tkinter (judul: UNIB Navigator)
+
+TAMPILKAN label dan dropdown:
+    - "Pilih Lokasi Awal"
+    - "Pilih Lokasi Tujuan"
+    - "Pilih Hari"
+    - "Pilih Kendaraan"
+
+ISI combobox dengan daftar lokasi dari graph
+
+TAMPILKAN input waktu (format: 00:00)
+
+TAMPILKAN tombol "Cari Rute"
+
+// ==== Ketika tombol ditekan ====
+FUNCTION cari_rute():
+    ambil semua input dari GUI
+    validasi semua input (tidak kosong)
+
+    panggil bfs_shortest_path dengan start, end, dan hari
+    tampilkan hasil rute jika ditemukan
+    tampilkan popup jika rute tidak ditemukan
+
+    jika rute ditemukan:
+        panggil show_map untuk tampilkan peta rute
+
+TAMPILKAN GUI dengan window.mainloop()
+
+END
