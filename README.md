@@ -160,4 +160,4 @@ BFS adalah pilihan yang tepat buat aplikasi pencari rute di kampus UNIB karena:
 ![Screenshot (363)](https://github.com/user-attachments/assets/a0242192-7e46-49fb-9b72-553a958a3e09)
 
 
-gambar diatas merupakan beberapa contoh pencarian rute pada peta unib langkah pertama yang dilakukan yaitu menginputkan lokasi awal, lokasi tujuan, kendaraan, hari dan waktu. terdapat hari dan waktu disini karena berfungsi untuk menentukan apakah rute tersedia atau tidak.
+gambar diatas merupakan beberapa contoh pencarian rute pada peta unib langkah pertama yang dilakukan yaitu menginputkan lokasi awal, lokasi tujuan, kendaraan, hari dan waktu. terdapat hari dan waktu disini karena berfungsi untuk menentukan apakah rute tersedia atau tidak. 
