@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_7d49de8c33f22dab9715af12d052eac8 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <div style="position: absolute; top: 20px; left: 20px; z-index: 9999; padding: 15px;">
+    <div style="background-color: #ffffff; border-radius: 12px; padding: 20px; box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1); width: 400px; font-family: 'Arial', sans-serif; font-size: 14px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h3 style="color: #2980b9; font-size: 20px; font-weight: 700;">UNIB Navigator</h3>
+            <div style="display: flex; align-items: center;">
+                <i class="fa fa-clock" style="color: #e74c3c; font-size: 20px; margin-right: 10px;"></i>
+                <span style="color: #e74c3c; font-weight: 600; margin-right: 15px;">08:00</span>
+                <i class="fa fa-calendar" style="color: #FE4F2D; font-size: 20px; margin-right: 10px;"></i>
+                <span style="color: #FE4F2D; font-weight: 600;">Kamis</span>
+            </div>
+        </div>
+        <div style="border-top: 3px solid #2980b9; padding-top: 12px; padding-bottom: 12px; margin-bottom: 10px;">
+            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                <i class="fa fa-map-marker" style="color: green; font-size: 20px; margin-right: 10px;"></i>
+                <span style="color: #2c3e50; font-weight: 600;"><strong>Awal:</strong> Pasca hukum</span>
+            </div>
+            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                <i class="fa fa-map-marker" style="color: red; font-size: 20px; margin-right: 10px;"></i>
+                <span style="color: #2c3e50; font-weight: 600;"><strong>Tujuan:</strong> GLT</span>
+            </div>
+            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                <i class="fa-solid fa-map-location" style="color: #FFD700; font-size: 20px; margin-right: 10px;"></i>
+                <span style="color: #2c3e50;"><strong>Jarak Tempuh:</strong> 1050 meter</span>
+            </div>
+            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                <i class="fa fa-hourglass-half" style="color: #3498db; font-size: 20px; margin-right: 10px;"></i>
+                <span style="color: #2c3e50;"><strong>Waktu Tempuh:</strong> 6 menit</span>
+            </div>
+            <div style="display: flex; align-items: center; margin-bottom: 8px;">
+                <i class="fa fa-car" style="color: #9b59b6; font-size: 20px; margin-right: 10px;"></i>
+                <span style="color: #2c3e50;"><strong>Kendaraan:</strong> Sepeda</span>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+            <div class="folium-map" id="map_7d49de8c33f22dab9715af12d052eac8" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_7d49de8c33f22dab9715af12d052eac8 = L.map(
+                "map_7d49de8c33f22dab9715af12d052eac8",
+                {
+                    center: [-3.7603431176632367, 102.26978963903959],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 17,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_a1d4d4de6a876d0f698cba0f51947596 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_a1d4d4de6a876d0f698cba0f51947596.addTo(map_7d49de8c33f22dab9715af12d052eac8);
+        
+    
+
+        function geo_json_8a53e113b79d4d0ad5be824b28be2e4c_onEachFeature(feature, layer) {
+            layer.on({
+            });
+        };
+        var geo_json_8a53e113b79d4d0ad5be824b28be2e4c = L.geoJson(null, {
+                onEachFeature: geo_json_8a53e113b79d4d0ad5be824b28be2e4c_onEachFeature,
+            
+            ...{
+}
+        });
+
+        function geo_json_8a53e113b79d4d0ad5be824b28be2e4c_add (data) {
+            geo_json_8a53e113b79d4d0ad5be824b28be2e4c
+                .addData(data);
+        }
+            geo_json_8a53e113b79d4d0ad5be824b28be2e4c_add({"bbox": [102.267836, -3.760318, 102.272101, -3.758096], "features": [{"bbox": [102.267836, -3.760318, 102.272101, -3.758096], "geometry": {"coordinates": [[102.267907, -3.759681], [102.267836, -3.759706], [102.267844, -3.759734], [102.267987, -3.760115], [102.268055, -3.760194], [102.268113, -3.760204], [102.268126, -3.760207], [102.268216, -3.760196], [102.268412, -3.760102], [102.268512, -3.760097], [102.269037, -3.760228], [102.269283, -3.760318], [102.269452, -3.760245], [102.269599, -3.760091], [102.269776, -3.759865], [102.26971, -3.759587], [102.269691, -3.759436], [102.269716, -3.75929], [102.269764, -3.759208], [102.269807, -3.759156], [102.270027, -3.759016], [102.270065, -3.758993], [102.270273, -3.758879], [102.270972, -3.758603], [102.27143, -3.758532], [102.272094, -3.758508], [102.272101, -3.758424], [102.272019, -3.758415], [102.271742, -3.758382], [102.271706, -3.758366], [102.271692, -3.75834], [102.271742, -3.758096]], "type": "LineString"}, "properties": {"segments": [{"distance": 723.6, "duration": 135.3, "steps": [{"distance": 8.3, "duration": 2.0, "instruction": "Head west", "name": "-", "type": 11, "way_points": [0, 1]}, {"distance": 202.5, "duration": 36.5, "instruction": "Turn left", "name": "-", "type": 0, "way_points": [1, 11]}, {"distance": 75.9, "duration": 13.7, "instruction": "Keep left", "name": "-", "type": 12, "way_points": [11, 14]}, {"distance": 75.7, "duration": 13.6, "instruction": "Turn left", "name": "-", "type": 0, "way_points": [14, 18]}, {"distance": 151.1, "duration": 27.2, "instruction": "Keep right", "name": "-", "type": 13, "way_points": [18, 23]}, {"distance": 125.2, "duration": 22.5, "instruction": "Keep left", "name": "-", "type": 12, "way_points": [23, 25]}, {"distance": 9.4, "duration": 1.7, "instruction": "Turn left", "name": "-", "type": 0, "way_points": [25, 26]}, {"distance": 75.5, "duration": 18.1, "instruction": "Turn left", "name": "-", "type": 0, "way_points": [26, 31]}, {"distance": 0.0, "duration": 0.0, "instruction": "Arrive at your destination, on the right", "name": "-", "type": 10, "way_points": [31, 31]}]}], "summary": {"distance": 723.6, "duration": 135.3}, "way_points": [0, 31]}, "type": "Feature"}], "metadata": {"attribution": "openrouteservice.org | OpenStreetMap contributors", "engine": {"build_date": "2025-04-10T21:25:30Z", "graph_date": "2025-04-15T22:55:52Z", "version": "9.1.2"}, "query": {"coordinates": [[102.26814246216549, -3.759545616741641], [102.27190335322092, -3.7581289959410795]], "format": "geojson", "profile": "driving-car", "profileName": "driving-car"}, "service": "routing", "timestamp": 1745199273408}, "type": "FeatureCollection"});
+        geo_json_8a53e113b79d4d0ad5be824b28be2e4c.setStyle(function(feature) {return feature.properties.style;});
+
+        
+    
+            geo_json_8a53e113b79d4d0ad5be824b28be2e4c.addTo(map_7d49de8c33f22dab9715af12d052eac8);
+        
+    
+            var marker_e8f48e1fc44cbff9d4f81df753c5b0e7 = L.marker(
+                [-3.759545616741641, 102.26814246216549],
+                {
+}
+            ).addTo(map_7d49de8c33f22dab9715af12d052eac8);
+        
+    
+            var icon_f474603b86841c79632411a6ba4fb857 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_e8f48e1fc44cbff9d4f81df753c5b0e7.bindTooltip(
+                `<div>
+                     Start: Pasca hukum
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_e8f48e1fc44cbff9d4f81df753c5b0e7.setIcon(icon_f474603b86841c79632411a6ba4fb857);
+            
+    
+            var marker_fbc7ead06a2e429c2b83cf90dac95364 = L.marker(
+                [-3.7581289959410795, 102.27190335322092],
+                {
+}
+            ).addTo(map_7d49de8c33f22dab9715af12d052eac8);
+        
+    
+            var icon_6c3c82e668c74493a167abcec222dabe = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "red",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+            marker_fbc7ead06a2e429c2b83cf90dac95364.bindTooltip(
+                `<div>
+                     Destination: GLT
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fbc7ead06a2e429c2b83cf90dac95364.setIcon(icon_6c3c82e668c74493a167abcec222dabe);
+            
+</script>
+</html>
